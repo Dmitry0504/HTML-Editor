@@ -57,6 +57,22 @@ public class Controller {
         view.update();
     }
 
+    public void createNewDocument(){
+
+    }
+
+    public void openDocument(){
+
+    }
+
+    public void saveDocument(){
+
+    }
+
+    public void saveDocumentAs(){
+
+    }
+
     public void exit(){
         System.exit(0);
     }

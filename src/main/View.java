@@ -101,12 +101,41 @@ public class View extends JFrame implements ActionListener {
         controller.exit();
     }
 
+    //будет вызваться при выборе пунктов меню,
+    // у которых наше представление указано в виде слушателя событий
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        switch (e.getActionCommand()){
+            case "Новый":
+                controller.createNewDocument();
+                break;
+            case "Открыть":
+                controller.openDocument();
+                break;
+            case "Сохранить":
+                controller.saveDocument();
+                break;
+            case "Сохранить как...":
+                controller.saveDocumentAs();
+                break;
+            case "Выход":
+                exit();
+                break;
+            case "О программе":
+                showAbout();
+                break;
+        }
     }
 
+    //Этот метод будет вызываться, когда произошла смена выбранной вкладки
     public void selectedTabChanged() {
+        if(tabbedPane.getSelectedIndex() == 0){
+            controller.setPlainText(plainTextPane.getText());
+        }
+        else if(tabbedPane.getSelectedIndex() == 1) {
+            plainTextPane.setText(controller.getPlainText());
+        }
+        resetUndo();
     }
 
     public void undo(){
@@ -156,7 +185,10 @@ public class View extends JFrame implements ActionListener {
 
     //показывает диалоговое окно с информацией о программе
     public void showAbout(){
+        String message = "HTML редактор с графическим интерфейсом.\n" +
+                "В качестве библиотеки для создания графического интерфейса используется Swing.\n" +
+                "А в качестве архитектурного каркаса приложения использована MVC модель.";
         JOptionPane.showMessageDialog(
-                this, "О программе", "О программе", JOptionPane.INFORMATION_MESSAGE);
+                this, message, "О программе", JOptionPane.INFORMATION_MESSAGE);
     }
 }
